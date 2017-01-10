@@ -174,9 +174,8 @@ def create_rabbitmq_config_file(node_ips=None):
         f.write('  {rabbitmq_management,\n')
         f.write('     [{listener, [{port, %s}]}' % rabbitmq_management_port)
         if definitions_file_path:
-            f.write(',\n     {load_definitions, "%s"},\n' % definitions_file_path)
-        f.write('   ]}\n'
-                )
+            f.write(',\n     {load_definitions, "%s"}\n' % definitions_file_path)
+        f.write('   ]}\n')
         f.write('].\n')
 
 
