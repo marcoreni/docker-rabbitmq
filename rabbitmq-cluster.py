@@ -149,6 +149,7 @@ def create_rabbitmq_config_file(node_ips=None):
     default_pass = os.getenv('RABBITMQ_DEFAULT_PASS', 'guest')
     default_vhost = os.getenv('RABBITMQ_DEFAULT_VHOST', '/')
     net_ticktime = os.getenv('RABBITMQ_NET_TICKTIME', '60')
+    definitions_file_path = os.getenv('RABBITMQ_DEFINITIONS_FILE_PATH', None)
     cluster_partition_handling = os.getenv('RABBITMQ_CLUSTER_PARTITION_HANDLING', 'ignore')
     rabbitmq_management_port = os.getenv('RABBITMQ_MANAGEMENT_PORT', '/')
     with open(rabbitmq_config_file, 'w') as f:
@@ -170,8 +171,12 @@ def create_rabbitmq_config_file(node_ips=None):
         f.write('      ], disc}}\n')
         f.write('    ]\n')
         f.write('  },\n')
-        f.write('  {rabbitmq_management, [{listener, [{port, %s}]}]}\n'
-                % rabbitmq_management_port)
+        f.write('  {rabbitmq_management,\n')
+        f.write('     [{listener, [{port, %s}]}' % rabbitmq_management_port)
+        if definitions_file_path:
+            f.write(',\n     {load_definitions, "%s"},\n' % definitions_file_path)
+        f.write('   ]}\n'
+                )
         f.write('].\n')
 
 
