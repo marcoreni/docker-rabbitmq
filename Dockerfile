@@ -1,4 +1,4 @@
-FROM rabbitmq:3.5-management
+FROM rabbitmq:management
 
 ENV RABBITMQ_ERLANG_COOKIE= \
   RABBITMQ_DEFAULT_USER=guest \
