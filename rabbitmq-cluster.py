@@ -58,7 +58,7 @@ def wait_for_nodes_to_start():
         current_app = get_marathon_app(APP_ID)
         configured_count = current_app['instances']
         running_count = current_app['tasksRunning']
-        if running_count == configured_count:
+        if running_count >= configured_count:
             break
         LOGGER.info('%s is configured to have %d tasks,'
                     ' there are %d running tasks now,'
